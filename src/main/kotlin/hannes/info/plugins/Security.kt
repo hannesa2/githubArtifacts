@@ -10,6 +10,7 @@ fun Application.configureSecurity() {
         basic(name = "myauth1") {
             realm = "Ktor Server"
             validate { credentials ->
+                println("Validate ${credentials.name} == ${credentials.password}")
                 if (credentials.name == credentials.password) {
                     UserIdPrincipal(credentials.name)
                 } else {

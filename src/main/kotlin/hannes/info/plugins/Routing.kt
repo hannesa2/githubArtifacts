@@ -27,6 +27,10 @@ fun Application.configureRouting() {
 
         customerRouting()
 
+        listOrdersRoute()
+        getOrderRoute()
+        totalizeOrderRoute()
+
         get("/") {
             call.respondText("Hello World from /!")
         }
