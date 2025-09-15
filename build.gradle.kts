@@ -8,7 +8,7 @@ val postgres_version: String by project
 val h2_version: String by project
 plugins {
     kotlin("jvm") version "2.2.20"
-    id("io.ktor.plugin") version "3.2.3"
+    id("io.ktor.plugin") version "3.3.0"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
 }
 
