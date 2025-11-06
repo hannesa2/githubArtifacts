@@ -9,7 +9,10 @@ import io.ktor.server.routing.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 
-const val ROOT_RESPONSE = "get:/ Hello World. Try to do a /test1 to see http"
+const val ROOT_RESPONSE = "get:/ Hello World. Try to do a /html-response to see http"
+const val HTML_RESPONSE = "<h1>Hello html World</h1>"
+const val ERROR_RESPONSE = "Too busy"
+const val ILLEGAL_STATE = "Too busy"
 
 fun Application.configureRouting() {
 
@@ -17,7 +20,7 @@ fun Application.configureRouting() {
 
     install(StatusPages) {
         exception<IllegalStateException> { call, cause ->
-            call.respondText("App in illegal state as ${cause.message}")
+            call.respondText("$ILLEGAL_STATE '${cause.message}'")
         }
     }
 
@@ -37,12 +40,11 @@ fun Application.configureRouting() {
             call.respondText(ROOT_RESPONSE)
         }
         get("/error-test") {
-            throw IllegalStateException("Too Busy")
+            throw IllegalStateException(ERROR_RESPONSE)
         }
-        get("/test1") {
-            val text = "<h1>Hello From Ktor web site</h1>"
+        get("/html-response") {
             val type = ContentType.parse("text/html")
-            call.respondText(text, type)
+            call.respondText(HTML_RESPONSE, type)
         }
 
         get("{id?}") {
