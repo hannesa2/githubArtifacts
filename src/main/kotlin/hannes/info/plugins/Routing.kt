@@ -9,6 +9,8 @@ import io.ktor.server.routing.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 
+const val ROOT_RESPONSE = "get:/ Hello World. Try to do a /test1 to see http"
+
 fun Application.configureRouting() {
 
     val customerStorage = mutableListOf<Customer>()
@@ -32,7 +34,7 @@ fun Application.configureRouting() {
         totalizeOrderRoute()
 
         get("/") {
-            call.respondText("get:/ Hello World. Try to do a /test1 to see http")
+            call.respondText(ROOT_RESPONSE)
         }
         get("/error-test") {
             throw IllegalStateException("Too Busy")
