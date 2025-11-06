@@ -8,6 +8,7 @@ import io.ktor.server.testing.*
 import kotlin.test.*
 
 class ApplicationTest {
+
     @Test
     fun testRoot() = testApplication {
         application {
@@ -16,6 +17,28 @@ class ApplicationTest {
         client.get("/").apply {
             assertEquals(HttpStatusCode.OK, status)
             assertEquals(ROOT_RESPONSE, bodyAsText())
+        }
+    }
+
+    @Test
+    fun testHtml() = testApplication {
+        application {
+            configureRouting()
+        }
+        client.get("/html-response").apply {
+            assertEquals(HttpStatusCode.OK, status)
+            assertEquals(HTML_RESPONSE, bodyAsText())
+        }
+    }
+
+    @Test
+    fun testError() = testApplication {
+        application {
+            configureRouting()
+        }
+        client.get("/error-test").apply {
+            assertEquals(HttpStatusCode.OK, status)
+            assertEquals("$ILLEGAL_STATE '${ERROR_RESPONSE}'", bodyAsText())
         }
     }
 }
